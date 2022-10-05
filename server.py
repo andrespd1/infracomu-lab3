@@ -62,9 +62,9 @@ def MainServerThread(event, numArchivo, numClientes):
 
     # The type of file we want to send
     if numArchivo == 1:
-        filename = "150"
+        filename = "100.txt"
     else:
-        filename = "250"
+        filename = "250.txt"
     filesize = os.path.getsize(filename)
     log_file.write('The file is ({0}) selected for the test and it is: {1}\n'.format(filename, filesize/1000000))
     print('The file selected for the test is: ' + filename)
@@ -96,9 +96,13 @@ def MainServerThread(event, numArchivo, numClientes):
 
 if __name__ == '__main__':
     cv = Event()
-    numClientes = int(input("Ingrese el numero de clientes: (Max 25)\n"))
+    numClientes = int(input("Type the number of clients you want to transfer data:\n"))
     os.system('clear')
-    numArchivo = int(input("Que archivo desea usar:\n 1. 150 MB \n 2. 250 MB\n"))
+    numArchivo = int(input("Select the size of the file you want to use:\n 1. 100 MB \n 2. 250 MB\n"))
+    while (numArchivo != 1 or numArchivo != 2):
+        os.system('clear')
+        print('The option selected is invalid')
+        numArchivo = int(input("Select the size of the file you want to use:\n 1. 100 MB \n 2. 250 MB\n"))
     os.system('clear')
     server = Thread(target=MainServerThread, args=(cv, numArchivo, numClientes))
     server.start()

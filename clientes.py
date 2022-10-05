@@ -70,7 +70,7 @@ def MainClientThread(numClientes):
 
 if __name__ == '__main__':
     # Asks for the number of clients required for the transfer
-    numClientes = int(input("Ingrese el numero de clientes: (max 25)\n"))
+    numClientes = int(input("Type the number of clients you want to connect to the server:\n"))
     os.system('clear')
     # Instantiate a Superior Thread
     client = Thread(target=MainClientThread, args = (numClientes,))
