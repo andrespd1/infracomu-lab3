@@ -35,6 +35,7 @@ def serverOperation(connection, event, filename, addr):
     while True:
         # Read the bytes from the file
         bytes_read = file.read(BUFFER_SIZE)
+        print(bytes_read)
         # If bytes_read is null sending is done
         if not bytes_read:
             end_time = datetime.datetime.now().timestamp()
