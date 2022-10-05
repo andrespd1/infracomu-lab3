@@ -55,7 +55,7 @@ def clientOperation(socket, id, numClientes):
 
 
 def MainClientThread(numClientes):
-    host = '192.168.5.118'
+    host = '192.168.5.110'
     # Instantiate N Threads for the number of clients selected
     for x in range(1, numClientes + 1):
         # Instantiate a socket
