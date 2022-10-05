@@ -99,7 +99,8 @@ if __name__ == '__main__':
     numClientes = int(input("Type the number of clients you want to transfer data:\n"))
     os.system('clear')
     numArchivo = int(input("Select the size of the file you want to use:\n 1. 100 MB \n 2. 250 MB\n"))
-    while (numArchivo != 1 or numArchivo != 2):
+    print(numArchivo)
+    while (numArchivo != 1 and numArchivo != 2):
         os.system('clear')
         print('The option selected is invalid')
         numArchivo = int(input("Select the size of the file you want to use:\n 1. 100 MB \n 2. 250 MB\n"))
