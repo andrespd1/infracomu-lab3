@@ -68,7 +68,7 @@ def MainServerThread(event, numArchivo, numClientes):
     filesize = os.path.getsize(filename)
     log_file.write('The file is ({0}) selected for the test and it is: {1}\n'.format(filename, filesize/1000000))
     print('The file selected for the test is: ' + filename)
-    host = "192.168.5.110
+    host = '192.168.5.110'
     # Instantiate a socketΩ
     socketClient = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     # Autoconnect to the socket on the port
