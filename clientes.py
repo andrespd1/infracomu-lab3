@@ -30,7 +30,6 @@ def clientOperation(socket, id, numClientes):
         # Read 2048 bytes from the socket (receive)
         bytes_read = socket.recv(BUFFER_SIZE)
         # Asks if the separator is in the bytes read
-        print(bytes_read)
         if '<SEP>'.encode() in bytes_read:
             # Separates the hashcode from the bytes read
             end_time = datetime.datetime.now().timestamp()
@@ -56,7 +55,7 @@ def clientOperation(socket, id, numClientes):
 
 
 def MainClientThread(numClientes):
-    host = '192.168.5.110'
+    host = 'localhost'
     # Instantiate N Threads for the number of clients selected
     for x in range(1, numClientes + 1):
         # Instantiate a socket
