@@ -40,7 +40,7 @@ def clientOperation(socket, id, numClientes):
         # Asks if the separator is in the bytes read
         if '<SEP>'.encode() in bytes_read:
             print(bytes_read.split("<SEP>".encode())[1].decode())
-            print(bytes_read)
+            #print(bytes_read)
             file.close()
             # Separates the hashcode from the bytes read
             end_time = datetime.datetime.now().timestamp()
