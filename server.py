@@ -40,10 +40,11 @@ def serverOperation(connection, event, filename, addr):
         if not bytes_read:
             end_time = datetime.datetime.now().timestamp()
             break
-        # Updates MD5 with the bytes_read
-        md5.update(bytes_read)
+        
         # Sends the byte package to client
         connection.send(bytes_read)
+        # Updates MD5 with the bytes_read
+        md5.update(bytes_read)
         package_n += 1
     with print_lock:
         print('Client ' + str(addr) + ': received ' + str(package_n) + ' packages.')
