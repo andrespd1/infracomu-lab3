@@ -39,7 +39,7 @@ def clientOperation(socket, id, numClientes):
         bytes_read = socket.recv(BUFFER_SIZE)
         # Asks if the separator is in the bytes read
         if '<SEP>'.encode() in bytes_read:
-            print("sep", "<SEP>".encode())
+            #print("sep", "<SEP>".encode())
             print(bytes_read)
             file.close()
             # Separates the hashcode from the bytes read
