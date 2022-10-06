@@ -57,7 +57,7 @@ def serverOperation(connection, event, filename, addr):
         print('Client' + str(addr) + ': Hash of the file sent: ' + str(calculated_hash) +'\n-------------------------------------')
     package_n += 1
     log_file.write('Client ' + str(addr) + ' transmission has successfully ended.'+'\n')
-    log_file.write('The file sent to Client ' + str(addr) + 'took: ' + str((end_time - start_time)) + ' ms.'+'\n')
+    log_file.write('The file sent to Client ' + str(addr) + 'took: ' + str((end_time - start_time)) + ' s.'+'\n')
 
 
 def MainServerThread(event, numArchivo, numClientes):

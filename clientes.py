@@ -55,7 +55,7 @@ def clientOperation(socket, id, numClientes):
     log_file.write('The file is ({0}) selected for the test and it is: {1}\n'.format(filename, filesize/1000000))
     log_file.write('Connected client: ' + str(socket.getsockname()) + '\n')
     log_file.write('Client ' + str(socket.getsockname()) + ' transmission has successfully ended.' + '\n')
-    log_file.write('The file received on Client ' + str(socket.getsockname()) + 'took: ' + str((end_time - start_time)) + ' ms.' + '\n')
+    log_file.write('The file received on Client ' + str(socket.getsockname()) + 'took: ' + str((end_time - start_time)) + ' s.' + '\n')
     socket.close()
 
 
