@@ -6,7 +6,7 @@ import os
 
 host = 'localhost'
 port = 12345
-BUFFER_SIZE = 2048  # Send 2048 bytes each time step
+BUFFER_SIZE = 2048*10  # Send 2048 bytes each time step
 # Create the log file name
 name_log = str(datetime.datetime.now()).replace(' ', '-').replace(':', '-').split('.')[0]
 name_log += '-log.txt'
