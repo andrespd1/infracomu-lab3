@@ -12,13 +12,6 @@ name_log = str(datetime.datetime.now()).replace(' ', '-').replace(':', '-').spli
 name_log += '-log.txt'
 # Create the log file
 log_file = open('./Logs/' + name_log, 'w')
-def computeHash(filepath):
-    with open(filepath, 'rb') as file_to_check:
-        # read contents of the file
-        data = file_to_check.read()    
-        # pipe contents of the file through
-        md5_returned = hashlib.md5(data).hexdigest()
-    return md5_returned
 # Thread function
 def clientOperation(socket, id, numClientes):
     received_hash = ''
@@ -54,11 +47,9 @@ def clientOperation(socket, id, numClientes):
         md5.update(bytes_read)
         # Write to the file the bytes we just received
         file.write(bytes_read)
-    print(computedHash)
-    print('Other method'+ computeHash(filepath))
-    print("[CLIENT {0}]: Received file's calculated hash: {1}".format(socket.getsockname(), md5.hexdigest()))
+    print("[CLIENT {0}]: Received file's calculated hash: {1}".format(socket.getsockname(), computedHash))
     print('[CLIENT {0}]: Hash from server: {1}'.format(socket.getsockname(), received_hash))
-    print('[CLIENT {0}]: Integrity of data is:'.format(socket.getsockname()), received_hash == md5.hexdigest(),'\n-------------------------------------')
+    print('[CLIENT {0}]: Integrity of data is:'.format(socket.getsockname()), received_hash == computedHash,'\n-------------------------------------')
     filesize = os.path.getsize(filepath)
     log_file.write('The file is ({0}) selected for the test and it is: {1}\n'.format(filename, filesize/1000000))
     log_file.write('Connected client: ' + str(socket.getsockname()) + '\n')
