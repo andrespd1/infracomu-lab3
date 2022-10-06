@@ -5,9 +5,9 @@ from threading import Event, Thread
 import datetime
 import os
 
-host = 'localhost'
+host = '192.168.5.111'
 port = 12345
-BUFFER_SIZE = 2048*10  # Send 2048 bytes each time step
+BUFFER_SIZE = 2048  # Send 2048 bytes each time step
 clientesListos = 0
 # Create the log file name
 name_log = str(datetime.datetime.now()).replace(' ', '').replace(':', '-').split('.')[0]

@@ -4,15 +4,21 @@ from threading import Event, Thread
 import datetime
 import os
 
-host = 'localhost'
+host = '192.168.5.111'
 port = 12345
-BUFFER_SIZE = 2048*10  # Send 2048 bytes each time step
+BUFFER_SIZE = 2048  # Send 2048 bytes each time step
 # Create the log file name
 name_log = str(datetime.datetime.now()).replace(' ', '-').replace(':', '-').split('.')[0]
 name_log += '-log.txt'
 # Create the log file
 log_file = open('./Logs/' + name_log, 'w')
-
+def computeHash(filepath):
+    with open(filepath, 'rb') as file_to_check:
+        # read contents of the file
+        data = file_to_check.read()    
+        # pipe contents of the file through
+        md5_returned = hashlib.md5(data).hexdigest()
+    return md5_returned
 # Thread function
 def clientOperation(socket, id, numClientes):
     received_hash = ''
@@ -32,6 +38,7 @@ def clientOperation(socket, id, numClientes):
         bytes_read = socket.recv(BUFFER_SIZE)
         # Asks if the separator is in the bytes read
         if '<SEP>'.encode() in bytes_read:
+            file.close()
             # Separates the hashcode from the bytes read
             end_time = datetime.datetime.now().timestamp()
             received_hash = bytes_read.decode().split('<SEP>')[1]
@@ -43,7 +50,7 @@ def clientOperation(socket, id, numClientes):
         md5.update(bytes_read)
         # Write to the file the bytes we just received
         file.write(bytes_read)
-    file.close()
+    print('Other method', computeHash(filepath))
     print("[CLIENT {0}]: Received file's calculated hash: {1}".format(socket.getsockname(), md5.hexdigest()))
     print('[CLIENT {0}]: Hash from server: {1}'.format(socket.getsockname(), received_hash))
     print('[CLIENT {0}]: Integrity of data is:'.format(socket.getsockname()), received_hash == md5.hexdigest(),'\n-------------------------------------')
