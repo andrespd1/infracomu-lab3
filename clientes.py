@@ -43,7 +43,7 @@ def clientOperation(socket, id, numClientes):
             # Separates the hashcode from the bytes read
             end_time = datetime.datetime.now().timestamp()
             received_hash = bytes_read.decode().split('<SEP>')[1]
-            computeHash = md5.hexdigest()
+            computedHash = md5.hexdigest()
             break
         # Waits for the server to send the bytes
         if not bytes_read:
@@ -53,7 +53,7 @@ def clientOperation(socket, id, numClientes):
         # Write to the file the bytes we just received
         file.write(bytes_read)
     print(computedHash)
-    print('Other method'+ str(computeHash(filepath)))
+    print('Other method'+ computeHash(filepath))
     print("[CLIENT {0}]: Received file's calculated hash: {1}".format(socket.getsockname(), md5.hexdigest()))
     print('[CLIENT {0}]: Hash from server: {1}'.format(socket.getsockname(), received_hash))
     print('[CLIENT {0}]: Integrity of data is:'.format(socket.getsockname()), received_hash == md5.hexdigest(),'\n-------------------------------------')
