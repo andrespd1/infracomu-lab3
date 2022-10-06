@@ -33,6 +33,7 @@ def clientOperation(socket, id, numClientes):
         # Asks if the separator is in the bytes read
         if '<SEP>'.encode() in bytes_read:
             bytes_with_hash = bytes_read.split("<SEP>".encode())
+            file.write(bytes_with_hash[0])
             md5.update(bytes_with_hash[0])
             file.close()
             # Separates the hashcode from the bytes read
