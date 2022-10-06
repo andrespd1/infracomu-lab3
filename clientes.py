@@ -50,6 +50,7 @@ def clientOperation(socket, id, numClientes):
             continue
         # Update the MD5 with bytes read to complete hash
         md5.update(bytes_read)
+        print(md5.hexdigest())
         # Write to the file the bytes we just received
         file.write(bytes_read)
     print(computedHash)
