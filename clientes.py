@@ -39,12 +39,12 @@ def clientOperation(socket, id, numClientes):
         bytes_read = socket.recv(BUFFER_SIZE)
         # Asks if the separator is in the bytes read
         if '<SEP>'.encode() in bytes_read:
-            print(bytes_read.split("<SEP>".encode())[1].decode())
-            #print(bytes_read)
+            bytes_with_hash = bytes_read.split("<SEP>".encode())
+            md5.update(bytes_with_hash[0])
             file.close()
             # Separates the hashcode from the bytes read
             end_time = datetime.datetime.now().timestamp()
-            received_hash = bytes_read.decode().split('<SEP>')[1]
+            received_hash = bytes_with_hash[1].decode()
             computedHash = md5.hexdigest()
             break
         # Waits for the server to send the bytes
