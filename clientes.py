@@ -4,6 +4,7 @@ from threading import Event, Thread
 import datetime
 import os
 
+host = 'localhost'
 port = 12345
 BUFFER_SIZE = 2048  # Send 2048 bytes each time step
 # Create the log file name
@@ -30,7 +31,6 @@ def clientOperation(socket, id, numClientes):
         # Read 2048 bytes from the socket (receive)
         bytes_read = socket.recv(BUFFER_SIZE)
         # Asks if the separator is in the bytes read
-        print(bytes_read)
         if '<SEP>'.encode() in bytes_read:
             # Separates the hashcode from the bytes read
             end_time = datetime.datetime.now().timestamp()
@@ -56,7 +56,6 @@ def clientOperation(socket, id, numClientes):
 
 
 def MainClientThread(numClientes):
-    host = '192.168.5.110'
     # Instantiate N Threads for the number of clients selected
     for x in range(1, numClientes + 1):
         # Instantiate a socket

@@ -3,3 +3,5 @@
 .idea
 250.txt
 100.txt
+Logs/*.txt
+ArchivosRecibidos/*.txt

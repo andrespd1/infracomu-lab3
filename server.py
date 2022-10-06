@@ -5,8 +5,9 @@ from threading import Event, Thread
 import datetime
 import os
 
+host = 'localhost'
 port = 12345
-BUFFER_SIZE = 2048  # Send 2048 bytes each time step
+BUFFER_SIZE = 2048*10  # Send 2048 bytes each time step
 clientesListos = 0
 # Create the log file name
 name_log = str(datetime.datetime.now()).replace(' ', '').replace(':', '-').split('.')[0]
@@ -21,7 +22,7 @@ def serverOperation(connection, event, filename, addr):
     # Instantiate the MD5 algorithm for hashing the files
     md5 = hashlib.md5()
     # Receive confirmation of client for transfer initiation with the id of client
-    confirmation = connection.recv(2048)
+    confirmation = connection.recv(BUFFER_SIZE)
     # Deserialize client id
     print("Client", addr, "sent confirmation")
     # Adds 1 to check the number of clients connected
@@ -35,7 +36,6 @@ def serverOperation(connection, event, filename, addr):
     while True:
         # Read the bytes from the file
         bytes_read = file.read(BUFFER_SIZE)
-        print(bytes_read)
         # If bytes_read is null sending is done
         if not bytes_read:
             end_time = datetime.datetime.now().timestamp()
@@ -69,7 +69,6 @@ def MainServerThread(event, numArchivo, numClientes):
     filesize = os.path.getsize(filename)
     log_file.write('The file is ({0}) selected for the test and it is: {1}\n'.format(filename, filesize/1000000))
     print('The file selected for the test is: ' + filename)
-    host = '192.168.5.110'
     # Instantiate a socketΩ
     socketClient = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     # Autoconnect to the socket on the port
