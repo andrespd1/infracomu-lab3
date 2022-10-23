@@ -3,5 +3,7 @@
 .idea
 250.txt
 100.txt
-Logs/*.txt
-ArchivosRecibidos/*.txt
+Act_1/Logs/*.txt
+Act_1/ArchivosRecibidos/*.txt
+Act_2/Logs/*.txt
+Act_2/ArchivosRecibidos/*.txt
