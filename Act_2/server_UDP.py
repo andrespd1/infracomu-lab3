@@ -4,6 +4,8 @@ import threading
 from threading import Event, Thread
 import datetime
 import os
+import csv
+
 
 host = 'localhost'
 port = 12345
@@ -15,7 +17,7 @@ name_log += '-log.txt'
 log_file = open('./Logs/' + name_log, 'w')
 print_lock = threading.Lock()
 
-def serverOperation(filename, clientAddress, serverSocket):
+def serverOperation(filename, clientAddress, serverSocket, id, filesize, numClientes, writer):
     # Opening file reading binary
     file = open(filename, "rb")
     # Instantiate the MD5 algorithm for hashing the files
@@ -39,21 +41,22 @@ def serverOperation(filename, clientAddress, serverSocket):
         package_n += 1
     package_n += 1
     with print_lock:
-        print('Client ' + str(clientAddress) + ': received ' + str(package_n) + ' packages.')
+        print('Client ' + str(clientAddress) + ': got sent ' + str(package_n) + ' packages with buffer size '+ str(BUFFER_SIZE)+' bytes\n')
         # Calculates the hash of the file sent
         calculated_hash = md5.hexdigest()
         # Send the hash with a separator
         serverSocket.sendto(('<SEP>'+calculated_hash).encode(), clientAddress)
 
-        print('Transmission took ' + str(package_n) + ' packages with buffer size .'+ str(BUFFER_SIZE)+'\n')
         print('Client' + str(clientAddress) + ': Hash of the file sent: ' + str(calculated_hash) +'\n-------------------------------------')
     
     log_file.write('Client ' + str(clientAddress) + ' transmission has successfully ended.'+'\n')
-    log_file.write('Transmission took ' + str(package_n) + ' packages with buffer size .'+ str(BUFFER_SIZE))
+    log_file.write('Transmission took ' + str(package_n) + ' packages with buffer size '+ str(BUFFER_SIZE)+' bytes\n')
     log_file.write('The file sent to Client ' + str(clientAddress) + 'took: ' + str((end_time - start_time)) + ' ms.'+'\n')
+    #header = [numClientes,clientId,clientSocket_server,sentPackages,sendingTime,sentBytes,tasaTransferencia_servidor]
+    serverData = [numClientes, int(id.decode()), clientAddress[1],BUFFER_SIZE, package_n, end_time - start_time,filesize/1000000,(filesize/1000000)/(end_time - start_time)]
+    writer.writerow(serverData)
 
-
-def MainServerThread(numArchivo, numClientes):
+def MainServerThread(numArchivo, numClientes, writer):
 
     # The type of file we want to send
     if numArchivo == 1:
@@ -73,11 +76,11 @@ def MainServerThread(numArchivo, numClientes):
     print('Server is waiting for client connections\n-------------------------------------')
     clientesConectados = 0
     while clientesConectados < numClientes:
-        message, clientAddress = serverSocket.recvfrom(BUFFER_SIZE)
+        id, clientAddress = serverSocket.recvfrom(BUFFER_SIZE)
         print('Recevied ping from client', clientAddress)
         clientesConectados += 1
         # Start a new thread and return its identifier
-        serverHandler = Thread(target=serverOperation, args=(filename, clientAddress, serverSocket))
+        serverHandler = Thread(target=serverOperation, args=(filename, clientAddress, serverSocket, id, filesize, numClientes, writer))
         log_file.write('Connected client: ' + str(clientAddress)+'\n')
         serverHandler.start()
         print('Client connected to server, data transfer starting')
@@ -96,5 +99,9 @@ if __name__ == '__main__':
         print('The option selected is invalid')
         numArchivo = int(input("Select the size of the file you want to use:\n 1. 100 MB \n 2. 250 MB\n"))
     os.system('clear')
-    server = Thread(target=MainServerThread, args=( numArchivo, numClientes))
+    csvFile = open('pruebasDeCarga/pruebaServer.csv', 'a', encoding='UTF8', newline='')
+    writer = csv.writer(csvFile)
+    #header = ["clientId","clientSocket_server",'bufferSize','sentPackages','sendingTime','sentBytes','tasaTransferencia_servidor']
+    writer.writerow([])
+    server = Thread(target=MainServerThread, args=( numArchivo, numClientes, writer))
     server.start()
