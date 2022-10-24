@@ -3,8 +3,9 @@ import socket
 from threading import Event, Thread
 import datetime
 import os
+import sys
 
-host = '192.168.5.111'
+host = sys.argv[1]
 port = 12345
 BUFFER_SIZE = 2048  # Send 2048 bytes each time step
 # Create the log file name

@@ -5,9 +5,9 @@ from threading import Event, Thread
 import datetime
 import os
 import csv
+import sys
 
-
-host = '192.168.1.6'
+host = sys.argv[1]
 port = 12345
 BUFFER_SIZE = 0  # Send 2048 bytes each time step
 # Create the log file name
