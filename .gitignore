@@ -1,8 +1,11 @@
 #Unused files
 .DS_store
 .idea
-250.txt
-100.txt
+Act_2/Docs/
+Act_2/pruebasDeCarga/
+Act_2/Wireshark/
+Act_2/250.txt
+Act_2/100.txt
 Act_1/Logs/*.txt
 Act_1/ArchivosRecibidos/*.txt
 Act_2/Logs/*.txt
