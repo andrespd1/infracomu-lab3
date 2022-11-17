@@ -70,6 +70,7 @@ def MainServerThread(numArchivo, numClientes, writer):
     serverSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     # Autoconnect to the socket on the port
     serverSocket.bind((host, port))
+    print('Server is running on host: ' + str(host))
     print('Server is running on the port: ' + str(port))
 
     

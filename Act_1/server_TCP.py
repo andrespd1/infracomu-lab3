@@ -4,9 +4,10 @@ import threading
 from threading import Event, Thread
 import datetime
 import os
+import sys
 
-host = '192.168.5.111'
-port = 12345
+host = sys.argv[1]
+port = 12346
 BUFFER_SIZE = 2048  # Send 2048 bytes each time step
 clientesListos = 0
 # Create the log file name
@@ -74,6 +75,7 @@ def MainServerThread(event, numArchivo, numClientes):
     socketClient = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     # Autoconnect to the socket on the port
     socketClient.bind((host, port))
+    print('Server is running on host: ' + str(host))
     print('Server is running on the port: ' + str(port))
 
     # Put the socket into listening mode
